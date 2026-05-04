@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { fadeUp } from "@/pages/home/home-animations";
+import { fadeUp } from "@/lib/home-animations";
 
 const benefits = [
   "Flexible hours, work from anywhere",

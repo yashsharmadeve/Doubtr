@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import { fadeUp } from "@/pages/home/home-animations";
+import { fadeUp } from "@/lib/home-animations";
 import { steps } from "@/pages/home/home-data";
 
 export default function HomeHowItWorks() {

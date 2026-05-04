@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { fadeUp } from "@/pages/home/home-animations";
+import { fadeUp } from "@/lib/home-animations";
 import { features } from "@/pages/home/home-data";
 
 export default function HomeFeatures() {
