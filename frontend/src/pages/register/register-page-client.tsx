@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import StudentForm from "@/pages/register/components/student-form";
 import TeacherForm from "@/pages/register/components/teacher-form";
-import { RoleCard } from "@/pages/register/components/register-form-elements";
+import { RoleCard } from "@/components/register/register-form-elements";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 

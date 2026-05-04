@@ -37,7 +37,7 @@ import {
   SUBJECTS,
   TIME_SLOTS,
 } from "@/lib/register-data";
-import { ChipGroup, Field, FileDrop, SectionHeader } from "@/pages/register/components/register-form-elements";
+import { ChipGroup, Field, FileDrop, SectionHeader } from "@/components/register/register-form-elements";
 
 const TeacherForm = ({ onBack }: { onBack: () => void }) => {
   const router = useRouter();
