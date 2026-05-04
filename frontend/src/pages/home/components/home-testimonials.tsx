@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 import { fadeUp } from "@/lib/home-animations";
-import { testimonials } from "@/pages/home/home-data";
+import { testimonials } from "@/lib/home-data";
 
 export default function HomeTestimonials() {
   return (

@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { fadeUp } from "@/lib/home-animations";
-import { features } from "@/pages/home/home-data";
+import { features } from "@/lib/home-data";
 
 export default function HomeFeatures() {
   return (

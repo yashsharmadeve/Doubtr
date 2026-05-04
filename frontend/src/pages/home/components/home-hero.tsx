@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import heroImg from "@/assets/images/hero-teacher.jpg";
 import { Button } from "@/components/ui/button";
-import { subjects } from "@/pages/home/home-data";
+import { subjects } from "@/lib/home-data";
 
 export default function HomeHero() {
   return (
