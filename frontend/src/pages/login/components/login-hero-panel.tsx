@@ -3,7 +3,7 @@ import { BadgeCheck, Star } from "lucide-react";
 import Image from "next/image";
 
 import heroImg from "@/assets/images/hero-teacher.jpg";
-import { ease } from "@/pages/login/login-animations";
+import { ease } from "@/lib/login-animations";
 
 export default function LoginHeroPanel() {
   return (

@@ -36,7 +36,7 @@ import {
   ROLES_TEACHER,
   SUBJECTS,
   TIME_SLOTS,
-} from "@/pages/register/register-data";
+} from "@/lib/register-data";
 import { ChipGroup, Field, FileDrop, SectionHeader } from "@/pages/register/components/register-form-elements";
 
 const TeacherForm = ({ onBack }: { onBack: () => void }) => {

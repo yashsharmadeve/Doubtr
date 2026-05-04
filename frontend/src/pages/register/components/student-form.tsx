@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { BOARDS, CLASSES, DOUBT_TYPES, LANGUAGES, STREAMS, SUBJECTS } from "@/pages/register/register-data";
+import { BOARDS, CLASSES, DOUBT_TYPES, LANGUAGES, STREAMS, SUBJECTS } from "@/lib/register-data";
 import { ChipGroup, Field, SectionHeader } from "@/pages/register/components/register-form-elements";
 
 const StudentForm = ({ onBack }: { onBack: () => void }) => {
