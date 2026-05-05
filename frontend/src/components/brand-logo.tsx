@@ -10,6 +10,7 @@ type BrandLogoProps = {
   className?: string;
   iconWrapperClassName?: string;
   textClassName?: string;
+  state?: 'collapsed' | 'expanded';
 };
 
 export default function BrandLogo({
@@ -19,11 +20,14 @@ export default function BrandLogo({
   className,
   iconWrapperClassName,
   textClassName,
+  state = 'expanded',
 }: BrandLogoProps) {
   return (
     <Link href={href} className={cn('flex items-center gap-2', className)}>
       <span className={cn('grid place-items-center', iconWrapperClassName)}>{icon}</span>
-      <span className={cn('font-semibold text-lg tracking-tight', textClassName)}>{title}</span>
+      {state !== 'collapsed' && (
+        <span className={cn('font-semibold text-lg tracking-tight', textClassName)}>{title}</span>
+      )}
     </Link>
   );
 }

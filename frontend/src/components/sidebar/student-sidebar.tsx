@@ -46,6 +46,7 @@ export function StudentSidebar() {
           textClassName="font-bold text-lg"
           className="font-bold text-lg"
           href="/student/dashboard"
+          state={collapsed ? 'collapsed' : 'expanded'}
         />
       </SidebarHeader>
 
