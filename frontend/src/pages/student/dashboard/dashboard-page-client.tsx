@@ -6,7 +6,7 @@ import { ArrowUpRight, BookOpen, Sparkles, TrendingUp, Video } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { recent, stats, subjects, upcoming } from '@/pages/student/dashboard/dashboard-data';
+import { recent, stats, subjects, upcoming } from '@/lib/student-dashboard-data';
 
 export default function DashboardPageClient() {
   return (
