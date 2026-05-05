@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import Link from 'next/link';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 
-import BrandLogo from "@/components/brand-logo";
+import BrandLogo from '@/components/brand-logo';
 
 export default function LoginTopNav() {
   return (

@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 const Page = () => {
-  redirect('/student/dashboard')
-}
+  redirect('/student/dashboard');
+};
 
-export default Page
+export default Page;

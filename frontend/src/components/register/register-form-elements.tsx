@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { ComponentType, ReactNode } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Upload } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import type { ComponentType, ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Upload } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -67,10 +67,10 @@ export const ChipGroup = ({
           key={opt}
           onClick={() => onToggle(opt)}
           className={cn(
-            "px-3.5 py-1.5 rounded-full text-sm border transition-all",
+            'px-3.5 py-1.5 rounded-full text-sm border transition-all',
             active
-              ? "bg-foreground text-background border-foreground shadow-soft"
-              : "bg-background text-foreground border-border hover:border-foreground/40",
+              ? 'bg-foreground text-background border-foreground shadow-soft'
+              : 'bg-background text-foreground border-border hover:border-foreground/40',
           )}
         >
           {active && <CheckCircle2 className="h-3 w-3 inline mr-1 -mt-0.5" />}
@@ -96,20 +96,14 @@ export const FileDrop = ({
     <div className="border-2 border-dashed border-border rounded-xl p-5 hover:border-primary/50 hover:bg-muted/40 transition-all text-center">
       <Upload className="h-5 w-5 mx-auto text-muted-foreground mb-2" />
       <p className="text-sm font-medium">{fileName || label}</p>
-      {hint && !fileName && (
-        <p className="text-xs text-muted-foreground mt-0.5">{hint}</p>
-      )}
+      {hint && !fileName && <p className="text-xs text-muted-foreground mt-0.5">{hint}</p>}
       {fileName && (
         <p className="text-xs text-primary mt-0.5 inline-flex items-center gap-1">
           <CheckCircle2 className="h-3 w-3" /> Uploaded
         </p>
       )}
     </div>
-    <input
-      type="file"
-      className="hidden"
-      onChange={(e) => onFile(e.target.files?.[0] || null)}
-    />
+    <input type="file" className="hidden" onChange={(e) => onFile(e.target.files?.[0] || null)} />
   </label>
 );
 
@@ -134,10 +128,10 @@ export const RoleCard = ({
     whileHover={{ y: -4 }}
     transition={{ duration: 0.3, ease }}
     className={cn(
-      "relative text-left p-7 rounded-2xl border-2 transition-all group overflow-hidden",
+      'relative text-left p-7 rounded-2xl border-2 transition-all group overflow-hidden',
       active
-        ? "border-foreground bg-foreground text-background shadow-elegant"
-        : "border-border bg-card hover:border-foreground/30",
+        ? 'border-foreground bg-foreground text-background shadow-elegant'
+        : 'border-border bg-card hover:border-foreground/30',
     )}
   >
     <div
@@ -146,19 +140,14 @@ export const RoleCard = ({
     />
     <div
       className={cn(
-        "relative h-12 w-12 rounded-xl flex items-center justify-center mb-4",
-        active ? "bg-background text-foreground" : "bg-muted text-foreground",
+        'relative h-12 w-12 rounded-xl flex items-center justify-center mb-4',
+        active ? 'bg-background text-foreground' : 'bg-muted text-foreground',
       )}
     >
       <Icon className="h-5 w-5" />
     </div>
     <h3 className="relative font-serif text-2xl tracking-tight mb-1">{title}</h3>
-    <p
-      className={cn(
-        "relative text-sm",
-        active ? "text-background/70" : "text-muted-foreground",
-      )}
-    >
+    <p className={cn('relative text-sm', active ? 'text-background/70' : 'text-muted-foreground')}>
       {desc}
     </p>
     {active && (

@@ -1,12 +1,12 @@
 'use client';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight, BookOpen, Sparkles, TrendingUp, Video } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { recent, stats, subjects, upcoming } from "@/pages/student/dashboard/dashboard-data";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, BookOpen, Sparkles, TrendingUp, Video } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { recent, stats, subjects, upcoming } from '@/pages/student/dashboard/dashboard-data';
 
 export default function DashboardPageClient() {
   return (
@@ -28,16 +28,26 @@ export default function DashboardPageClient() {
               Hello, <span className="text-gradient">Aarav</span> -- ready to learn?
             </h1>
             <p className="text-muted-foreground text-base max-w-xl">
-              You&#39;re on a 7-day streak. A teacher is online for your trigonometry doubts right now.
+              You&#39;re on a 7-day streak. A teacher is online for your trigonometry doubts right
+              now.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" className="bg-gradient-primary hover:opacity-90 text-primary-foreground shadow-elegant rounded-xl">
+            <Button
+              asChild
+              size="lg"
+              className="bg-gradient-primary hover:opacity-90 text-primary-foreground shadow-elegant rounded-xl"
+            >
               <Link href="/student/find-teacher">
                 Ask a doubt <ArrowUpRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-xl border-border bg-background/60 backdrop-blur">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-xl border-border bg-background/60 backdrop-blur"
+            >
               <Link href="/student/session/active">
                 <Video className="mr-1.5 h-4 w-4" /> Join session
               </Link>
@@ -57,7 +67,9 @@ export default function DashboardPageClient() {
             <Card className="p-5 border-border/70 hover:shadow-soft transition-shadow rounded-2xl">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider">
+                    {stat.label}
+                  </div>
                   <div className="font-serif text-3xl mt-2">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                     <TrendingUp className="h-3 w-3" /> {stat.trend}
@@ -65,7 +77,7 @@ export default function DashboardPageClient() {
                 </div>
                 <div
                   className={`h-10 w-10 rounded-xl flex items-center justify-center ${
-                    stat.tone === "primary" ? "bg-gradient-primary" : "bg-gradient-accent"
+                    stat.tone === 'primary' ? 'bg-gradient-primary' : 'bg-gradient-accent'
                   }`}
                 >
                   <stat.icon className="h-5 w-5 text-primary-foreground" />
@@ -104,7 +116,11 @@ export default function DashboardPageClient() {
                 </div>
                 <div className="hidden sm:block text-right">
                   <div className="text-xs text-muted-foreground">{session.time}</div>
-                  <Button asChild size="sm" className="mt-2 bg-gradient-primary text-primary-foreground rounded-lg">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="mt-2 bg-gradient-primary text-primary-foreground rounded-lg"
+                  >
                     <Link href="/student/session/upcoming">Join</Link>
                   </Button>
                 </div>

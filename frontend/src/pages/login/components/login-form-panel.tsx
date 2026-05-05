@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Lock, Mail } from "lucide-react";
-import Link from "next/link";
+import { motion } from 'framer-motion';
+import { ArrowRight, Lock, Mail } from 'lucide-react';
+import Link from 'next/link';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ease } from "@/lib/login-animations";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ease } from '@/lib/login-animations';
 
 function LoginSocialButtons() {
   return (
@@ -115,16 +115,22 @@ export default function LoginFormPanel() {
           <LoginForm />
 
           <p className="text-sm text-muted-foreground text-center mt-6">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="text-primary font-medium hover:underline">
               Sign up
             </Link>
           </p>
 
           <p className="text-xs text-muted-foreground text-center mt-6">
-            By continuing, you agree to our{" "}
-            <a className="underline hover:text-foreground" href="#">Terms</a> &{" "}
-            <a className="underline hover:text-foreground" href="#">Privacy Policy</a>.
+            By continuing, you agree to our{' '}
+            <a className="underline hover:text-foreground" href="#">
+              Terms
+            </a>{' '}
+            &{' '}
+            <a className="underline hover:text-foreground" href="#">
+              Privacy Policy
+            </a>
+            .
           </p>
         </div>
       </motion.div>

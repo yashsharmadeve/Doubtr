@@ -1,13 +1,16 @@
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { fadeUp } from "@/lib/home-animations";
-import { features } from "@/lib/home-data";
+import { Button } from '@/components/ui/button';
+import { fadeUp } from '@/lib/home-animations';
+import { features } from '@/lib/home-data';
 
 export default function HomeFeatures() {
   return (
-    <section id="features" className="bg-gradient-dark text-background py-24 relative overflow-hidden">
+    <section
+      id="features"
+      className="bg-gradient-dark text-background py-24 relative overflow-hidden"
+    >
       <div className="absolute inset-0 grid-bg opacity-10" />
       <div className="container relative">
         <motion.div {...fadeUp} className="flex flex-wrap items-end justify-between gap-6 mb-16">

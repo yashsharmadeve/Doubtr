@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import Link from 'next/link';
+import { ArrowUpRight, GraduationCap } from 'lucide-react';
 
-import BrandLogo from "@/components/brand-logo";
-import { Button } from "@/components/ui/button";
+import BrandLogo from '@/components/brand-logo';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
-  { href: "#how", label: "How it works" },
-  { href: "#features", label: "Features" },
-  { href: "#tutors", label: "For Tutors" },
-  { href: "#stories", label: "Stories" },
+  { href: '#how', label: 'How it works' },
+  { href: '#features', label: 'Features' },
+  { href: '#tutors', label: 'For Tutors' },
+  { href: '#stories', label: 'Stories' },
 ];
 
 export default function HomeHeader() {
@@ -32,7 +32,11 @@ export default function HomeHeader() {
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link href="/sign-in">Sign in</Link>
           </Button>
-          <Button size="sm" asChild className="rounded-full bg-foreground text-background hover:bg-foreground/90">
+          <Button
+            size="sm"
+            asChild
+            className="rounded-full bg-foreground text-background hover:bg-foreground/90"
+          >
             <Link href="/register">
               Get started <ArrowUpRight className="w-4 h-4 ml-1" />
             </Link>

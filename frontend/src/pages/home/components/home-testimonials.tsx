@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
-import { fadeUp } from "@/lib/home-animations";
-import { testimonials } from "@/lib/home-data";
+import { fadeUp } from '@/lib/home-animations';
+import { testimonials } from '@/lib/home-data';
 
 export default function HomeTestimonials() {
   return (
@@ -20,7 +20,7 @@ export default function HomeTestimonials() {
             key={t.name}
             {...fadeUp}
             transition={{ ...fadeUp.transition, delay: i * 0.1 }}
-            className={`p-8 rounded-3xl border border-border ${i === 1 ? "bg-foreground text-background" : "bg-card"}`}
+            className={`p-8 rounded-3xl border border-border ${i === 1 ? 'bg-foreground text-background' : 'bg-card'}`}
           >
             <div className="flex gap-0.5">
               {[...Array(t.rating)].map((_, idx) => (
@@ -32,7 +32,9 @@ export default function HomeTestimonials() {
               <div className="w-10 h-10 rounded-full bg-gradient-primary" />
               <div>
                 <p className="font-semibold text-sm">{t.name}</p>
-                <p className={`text-xs ${i === 1 ? "opacity-70" : "text-muted-foreground"}`}>{t.role}</p>
+                <p className={`text-xs ${i === 1 ? 'opacity-70' : 'text-muted-foreground'}`}>
+                  {t.role}
+                </p>
               </div>
             </figcaption>
           </motion.figure>

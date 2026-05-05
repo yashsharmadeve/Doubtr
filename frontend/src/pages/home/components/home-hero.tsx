@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, Clock, Play, Star } from "lucide-react";
-import Image from "next/image";
+import { motion } from 'framer-motion';
+import { ArrowRight, BadgeCheck, Clock, Play, Star } from 'lucide-react';
+import Image from 'next/image';
 
-import heroImg from "@/assets/images/hero-teacher.jpg";
-import { Button } from "@/components/ui/button";
-import { subjects } from "@/lib/home-data";
+import heroImg from '@/assets/images/hero-teacher.jpg';
+import { Button } from '@/components/ui/button';
+import { subjects } from '@/lib/home-data';
 
 export default function HomeHero() {
   return (
@@ -15,7 +15,10 @@ export default function HomeHero() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+            }}
             className="lg:col-span-7"
           >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs font-medium shadow-soft">
@@ -28,15 +31,22 @@ export default function HomeHero() {
               Confidence, <span className="font-serif italic font-normal">built.</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-              The fastest way to learn anything that&apos;s stuck in your head. Verified tutors, live sessions, and an AI
-              co-pilot — all in one place.
+              The fastest way to learn anything that&apos;s stuck in your head. Verified tutors,
+              live sessions, and an AI co-pilot — all in one place.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button size="lg" className="rounded-full h-12 px-7 bg-foreground text-background hover:bg-foreground/90 group">
+              <Button
+                size="lg"
+                className="rounded-full h-12 px-7 bg-foreground text-background hover:bg-foreground/90 group"
+              >
                 Ask your first doubt
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition" />
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full h-12 px-7 bg-card/80 backdrop-blur">
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-full h-12 px-7 bg-card/80 backdrop-blur"
+              >
                 <Play className="w-4 h-4 mr-2 fill-current" /> Watch demo
               </Button>
             </div>
@@ -66,7 +76,11 @@ export default function HomeHero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            transition={{
+              duration: 0.9,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+            }}
             className="lg:col-span-5 relative"
           >
             <div className="relative rounded-3xl overflow-hidden shadow-elegant aspect-[4/5]">

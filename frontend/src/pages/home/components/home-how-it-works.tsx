@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-import { fadeUp } from "@/lib/home-animations";
-import { steps } from "@/lib/home-data";
+import { fadeUp } from '@/lib/home-animations';
+import { steps } from '@/lib/home-data';
 
 export default function HomeHowItWorks() {
   return (
@@ -21,7 +21,9 @@ export default function HomeHowItWorks() {
             transition={{ ...fadeUp.transition, delay: i * 0.1 }}
             className="group relative p-8 rounded-3xl border border-border bg-card hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
           >
-            <span className="absolute top-6 right-6 text-6xl font-serif text-muted/60">0{i + 1}</span>
+            <span className="absolute top-6 right-6 text-6xl font-serif text-muted/60">
+              0{i + 1}
+            </span>
             <div className="w-14 h-14 rounded-2xl bg-gradient-primary grid place-items-center text-primary-foreground shadow-glow">
               <step.icon className="w-6 h-6" />
             </div>

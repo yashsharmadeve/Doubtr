@@ -1,10 +1,10 @@
 'use client';
 
-import { Bell, Search } from "lucide-react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { StudentSidebar } from "@/components/sidebar/student-sidebar";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Bell, Search } from 'lucide-react';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { StudentSidebar } from '@/components/sidebar/student-sidebar';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 type StudentShellProps = {
   children: React.ReactNode;

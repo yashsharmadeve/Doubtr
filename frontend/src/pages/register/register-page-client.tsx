@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Briefcase, GraduationCap, ShieldCheck, Sparkles } from "lucide-react";
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import StudentForm from "@/pages/register/components/student-form";
-import TeacherForm from "@/pages/register/components/teacher-form";
-import { RoleCard } from "@/components/register/register-form-elements";
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, Briefcase, GraduationCap, ShieldCheck, Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import StudentForm from '@/pages/register/components/student-form';
+import TeacherForm from '@/pages/register/components/teacher-form';
+import { RoleCard } from '@/components/register/register-form-elements';
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-type Role = "student" | "teacher" | null;
+type Role = 'student' | 'teacher' | null;
 
 const RegisterPageClient = () => {
   const [role, setRole] = useState<Role>(null);
 
   const heading = useMemo(() => {
-    if (role === "student") return "Create your student profile";
-    if (role === "teacher") return "Join Doubtr as a teacher";
-    return "Join Doubtr";
+    if (role === 'student') return 'Create your student profile';
+    if (role === 'teacher') return 'Join Doubtr as a teacher';
+    return 'Join Doubtr';
   }, [role]);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div
         className="fixed inset-0 -z-10 opacity-60"
-        style={{ background: "var(--gradient-hero)" }}
+        style={{ background: 'var(--gradient-hero)' }}
       />
 
       <header className="sticky top-0 z-20 backdrop-blur-md bg-background/70 border-b border-border/60">
@@ -37,7 +37,10 @@ const RegisterPageClient = () => {
             <span className="font-semibold text-lg tracking-tight">Doubtr</span>
           </Link>
           <div className="flex items-center gap-4 text-sm">
-            <Link href="/sign-in" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              href="/sign-in"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               Already have an account? <span className="underline underline-offset-4">Sign in</span>
             </Link>
             <Link
@@ -66,8 +69,8 @@ const RegisterPageClient = () => {
           </h1>
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
             {role
-              ? "Fill in the details below - it only takes a minute."
-              : "Pick how you would like to use Doubtr. You can switch later."}
+              ? 'Fill in the details below - it only takes a minute.'
+              : 'Pick how you would like to use Doubtr. You can switch later.'}
           </p>
         </motion.div>
 
@@ -87,7 +90,7 @@ const RegisterPageClient = () => {
                 title="I'm a student"
                 desc="Get instant help with doubts from top tutors across subjects."
                 accent="var(--gradient-primary)"
-                onClick={() => setRole("student")}
+                onClick={() => setRole('student')}
               />
               <RoleCard
                 active={false}
@@ -95,7 +98,7 @@ const RegisterPageClient = () => {
                 title="I'm a teacher"
                 desc="Earn by solving doubts on your schedule, your way."
                 accent="var(--gradient-accent)"
-                onClick={() => setRole("teacher")}
+                onClick={() => setRole('teacher')}
               />
             </motion.div>
           )}
@@ -109,7 +112,7 @@ const RegisterPageClient = () => {
               transition={{ duration: 0.5, ease }}
               className="bg-card border border-border rounded-3xl p-6 sm:p-10 shadow-soft"
             >
-              {role === "student" ? (
+              {role === 'student' ? (
                 <StudentForm onBack={() => setRole(null)} />
               ) : (
                 <TeacherForm onBack={() => setRole(null)} />

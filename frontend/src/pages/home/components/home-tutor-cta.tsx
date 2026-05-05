@@ -1,21 +1,21 @@
-import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, Sparkles } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowRight, BadgeCheck, Sparkles } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { fadeUp } from "@/lib/home-animations";
+import { Button } from '@/components/ui/button';
+import { fadeUp } from '@/lib/home-animations';
 
 const benefits = [
-  "Flexible hours, work from anywhere",
-  "Weekly payouts, zero hassle",
-  "Build your own student base",
-  "Free training & teaching tools",
+  'Flexible hours, work from anywhere',
+  'Weekly payouts, zero hassle',
+  'Build your own student base',
+  'Free training & teaching tools',
 ];
 
 const tiers = [
-  { label: "Beginner", value: 30, amount: "₹15K" },
-  { label: "Intermediate", value: 55, amount: "₹38K" },
-  { label: "Advanced", value: 80, amount: "₹62K" },
-  { label: "Expert", value: 100, amount: "₹84K+" },
+  { label: 'Beginner', value: 30, amount: '₹15K' },
+  { label: 'Intermediate', value: 55, amount: '₹38K' },
+  { label: 'Advanced', value: 80, amount: '₹62K' },
+  { label: 'Expert', value: 100, amount: '₹84K+' },
 ];
 
 export default function HomeTutorCta() {
@@ -26,11 +26,13 @@ export default function HomeTutorCta() {
           <p className="text-sm font-semibold text-primary uppercase tracking-widest">For tutors</p>
           <h2 className="mt-3 text-4xl md:text-6xl font-bold tracking-tight">
             Teach what you love. <br />
-            <span className="font-serif italic font-normal text-gradient">Earn what you deserve.</span>
+            <span className="font-serif italic font-normal text-gradient">
+              Earn what you deserve.
+            </span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-            Set your hours. Set your rate. We handle scheduling, payments, and matching — so you can focus on what you
-            do best.
+            Set your hours. Set your rate. We handle scheduling, payments, and matching — so you can
+            focus on what you do best.
           </p>
           <div className="mt-8 space-y-3">
             {benefits.map((benefit) => (
@@ -42,7 +44,10 @@ export default function HomeTutorCta() {
               </div>
             ))}
           </div>
-          <Button size="lg" className="mt-8 rounded-full h-12 px-7 bg-gradient-accent text-accent-foreground hover:opacity-90">
+          <Button
+            size="lg"
+            className="mt-8 rounded-full h-12 px-7 bg-gradient-accent text-accent-foreground hover:opacity-90"
+          >
             Become a tutor <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </motion.div>
@@ -72,7 +77,7 @@ export default function HomeTutorCta() {
                       initial={{ width: 0 }}
                       whileInView={{ width: `${tier.value}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 1.2, delay: i * 0.15, ease: "easeOut" }}
+                      transition={{ duration: 1.2, delay: i * 0.15, ease: 'easeOut' }}
                       className="h-full bg-gradient-primary"
                     />
                   </div>
@@ -83,7 +88,9 @@ export default function HomeTutorCta() {
           <div className="absolute -bottom-6 -right-6 hidden md:block">
             <div className="bg-foreground text-background rounded-2xl p-5 shadow-elegant w-48">
               <Sparkles className="w-5 h-5 text-accent" />
-              <p className="mt-2 text-sm font-semibold">2,500+ tutors are already earning with us</p>
+              <p className="mt-2 text-sm font-semibold">
+                2,500+ tutors are already earning with us
+              </p>
             </div>
           </div>
         </motion.div>

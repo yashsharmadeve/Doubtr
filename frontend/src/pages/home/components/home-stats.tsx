@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-import { fadeUp } from "@/lib/home-animations";
-import { stats } from "@/lib/home-data";
+import { fadeUp } from '@/lib/home-animations';
+import { stats } from '@/lib/home-data';
 
 export default function HomeStats() {
   return (
