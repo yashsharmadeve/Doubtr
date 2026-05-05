@@ -43,7 +43,7 @@ export default function LoginHeroPanel() {
         className="relative z-10 space-y-4"
       >
         <div className="flex items-center gap-3 rounded-2xl border border-border bg-card/70 p-4 backdrop-blur-sm max-w-md shadow-soft">
-          <Image src={heroImg} alt="" className="h-12 w-12 rounded-xl object-cover" />
+          <Image src={heroImg} alt="Login Hero" loading="lazy" className="h-12 w-12 rounded-xl object-cover" />
           <div className="flex-1">
             <div className="flex items-center gap-1 text-accent">
               {Array.from({ length: 5 }).map((_, i) => (

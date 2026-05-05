@@ -75,6 +75,7 @@ export default function HomeHero() {
                 alt="Verified teacher mentoring students"
                 width={1280}
                 height={1280}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
