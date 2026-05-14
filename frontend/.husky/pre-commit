@@ -2,3 +2,4 @@
 
 npm --prefix frontend run lint
 npm --prefix frontend run format
+npx prettier . --write
