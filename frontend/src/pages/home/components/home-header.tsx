@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight, GraduationCap } from 'lucide-react';
 
-import BrandLogo from '@/components/brand-logo';
+import BrandLogo from '@/assets/brand-logo';
 import { Button } from '@/components/ui/button';
 
 const navItems = [

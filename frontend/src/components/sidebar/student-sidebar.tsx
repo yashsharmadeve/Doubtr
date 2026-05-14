@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Search, Video, History, User, GraduationCap } from 'lucide-react';
+import { LayoutDashboard, Video, History, User, GraduationCap } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -16,14 +16,14 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import BrandLogo from '../brand-logo';
+import BrandLogo from '../../assets/brand-logo';
 
 const items = [
-  { title: 'Dashboard', url: '/student/dashboard', icon: LayoutDashboard },
-  { title: 'Find Teacher', url: '/student/find-teacher', icon: Search },
-  { title: 'Live Session', url: '/student/session/active', icon: Video },
-  { title: 'History', url: '/student/history', icon: History },
-  { title: 'Profile', url: '/student/profile', icon: User },
+  { title: 'Dashboard', url: '/dashboard/student', icon: LayoutDashboard },
+  // { title: 'Find Teacher', url: '/dashboard/student/find-teacher', icon: Search },
+  { title: 'Live Session', url: '/dashboard/student/session/2', icon: Video },
+  { title: 'History', url: '/dashboard/student/history', icon: History },
+  { title: 'Profile', url: '/dashboard/student/profile', icon: User },
 ];
 
 export function StudentSidebar() {
@@ -33,7 +33,7 @@ export function StudentSidebar() {
 
   const isActive = (url: string) => {
     if (!pathname) return false;
-    if (url.includes('/session/')) return pathname.startsWith('/student/session');
+    if (url.includes('/session/')) return pathname.startsWith('/dashboard/student/session');
     return pathname === url;
   };
 
@@ -45,7 +45,7 @@ export function StudentSidebar() {
           iconWrapperClassName="w-8 h-8 rounded-lg bg-gradient-primary text-primary-foreground"
           textClassName="font-bold text-lg"
           className="font-bold text-lg"
-          href="/student/dashboard"
+          href="/dashboard/student"
           state={collapsed ? 'collapsed' : 'expanded'}
         />
       </SidebarHeader>
