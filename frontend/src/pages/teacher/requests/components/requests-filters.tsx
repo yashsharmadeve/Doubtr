@@ -49,6 +49,6 @@ const RequestsFilters = ({
       </div>
     </Card>
   );
-}
+};
 
 export default RequestsFilters;

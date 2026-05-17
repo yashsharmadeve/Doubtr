@@ -52,6 +52,6 @@ const RequestCard = ({ request }: RequestCardProps) => {
       </div>
     </Card>
   );
-}
+};
 
 export default RequestCard;

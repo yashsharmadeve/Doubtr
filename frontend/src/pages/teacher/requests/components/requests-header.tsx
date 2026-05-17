@@ -7,6 +7,6 @@ const RequestsHeader = () => {
       <p className="text-muted-foreground mt-1">Live queue of students waiting for help.</p>
     </div>
   );
-}
+};
 
 export default RequestsHeader;
