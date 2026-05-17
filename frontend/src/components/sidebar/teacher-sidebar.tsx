@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Video, History, User, GraduationCap } from 'lucide-react';
+import { LayoutDashboard, Video, History, User, GraduationCap, Inbox, Wallet } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -19,21 +19,22 @@ import {
 import BrandLogo from '../../assets/brand-logo';
 
 const items = [
-  { title: 'Dashboard', url: '/dashboard/student', icon: LayoutDashboard },
-  // { title: 'Find Teacher', url: '/dashboard/student/find-teacher', icon: Search },
-  { title: 'Live Session', url: '/dashboard/student/session/2', icon: Video },
-  { title: 'History', url: '/dashboard/student/history', icon: History },
-  { title: 'Profile', url: '/dashboard/student/profile', icon: User },
+  { title: "Dashboard", url: "/dashboard/teacher", icon: LayoutDashboard },
+  { title: "Doubt Requests", url: "/dashboard/teacher/requests", icon: Inbox },
+  { title: "Live Session", url: "/dashboard/teacher/session/active", icon: Video },
+  { title: "History", url: "/dashboard/teacher/history", icon: History },
+  { title: "Earnings", url: "/dashboard/teacher/earnings", icon: Wallet },
+  { title: "Profile", url: "/dashboard/teacher/profile", icon: User },
 ];
 
-export function StudentSidebar() {
+export function TeacherSidebar() {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const pathname = usePathname();
 
   const isActive = (url: string) => {
     if (!pathname) return false;
-    if (url.includes('/session/')) return pathname.startsWith('/dashboard/student/session');
+    if (url.includes('/session/')) return pathname.startsWith('/dashboard/teacher/session');
     return pathname === url;
   };
 
@@ -45,8 +46,8 @@ export function StudentSidebar() {
           iconWrapperClassName="w-8 h-8 rounded-lg bg-gradient-primary text-primary-foreground"
           textClassName="font-bold text-lg leading-6"
           className="font-bold text-lg"
-          subTitle="Student"
-          href="/dashboard/student"
+          subTitle="Teacher"
+          href="/dashboard/teacher"
           state={collapsed ? 'collapsed' : 'expanded'}
         />
       </SidebarHeader>
@@ -88,8 +89,8 @@ export function StudentSidebar() {
                 A
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-medium truncate">Aarav Sharma</div>
-                <div className="text-xs text-muted-foreground truncate">Class 10 · CBSE</div>
+                <div className="text-sm font-medium truncate">Priya Nair</div>
+                <div className="text-xs text-muted-foreground truncate">Mathematics · 8 yrs</div>
               </div>
             </div>
           </div>

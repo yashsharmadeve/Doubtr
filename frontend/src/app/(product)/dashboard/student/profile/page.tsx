@@ -1,7 +1,7 @@
 import ProfileClient from '@/pages/student/profile/ProfileClient';
 
-const page = () => {
+const ProfilePage = () => {
   return <ProfileClient />;
 };
 
-export default page;
+export default ProfilePage;

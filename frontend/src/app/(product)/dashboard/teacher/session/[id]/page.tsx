@@ -1,4 +1,4 @@
-import LiveSessionClient from '@/pages/student/liveSession/liveSessionClient';
+import LiveSessionClient from '@/pages/teacher/liveSession/liveSessionClient';
 
 const SessionPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
