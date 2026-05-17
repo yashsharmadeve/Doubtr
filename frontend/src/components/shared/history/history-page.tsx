@@ -22,7 +22,10 @@ type SessionHistoryPageProps = {
   monthlyValue: string;
 };
 
-function HistoryHeader({ title, description }: Pick<SessionHistoryPageProps, 'title' | 'description'>) {
+function HistoryHeader({
+  title,
+  description,
+}: Pick<SessionHistoryPageProps, 'title' | 'description'>) {
   return (
     <div>
       <h1 className="text-4xl font-serif">{title}</h1>
@@ -188,7 +191,10 @@ export default function SessionHistoryPage({
         session.topic.toLowerCase().includes(query.toLowerCase())),
   );
 
-  const totalMinutes = sessions.reduce((total, session) => total + parseInt(session.duration, 10), 0);
+  const totalMinutes = sessions.reduce(
+    (total, session) => total + parseInt(session.duration, 10),
+    0,
+  );
   const averageRating = sessions.length
     ? (sessions.reduce((total, session) => total + session.rating, 0) / sessions.length).toFixed(1)
     : '0.0';

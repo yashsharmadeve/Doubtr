@@ -29,8 +29,12 @@ export default function BrandLogo({
       <span className={cn('grid place-items-center', iconWrapperClassName)}>{icon}</span>
       {state !== 'collapsed' && (
         <div>
-        <span className={cn('font-semibold text-lg tracking', textClassName)}>{title}</span>
-        {subTitle && <span className={cn('font-semibold text-xs tracking-tight block text-gray-500')}>{subTitle}</span>}
+          <span className={cn('font-semibold text-lg tracking', textClassName)}>{title}</span>
+          {subTitle && (
+            <span className={cn('font-semibold text-xs tracking-tight block text-gray-500')}>
+              {subTitle}
+            </span>
+          )}
         </div>
       )}
     </Link>

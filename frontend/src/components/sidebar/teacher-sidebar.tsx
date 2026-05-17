@@ -19,12 +19,12 @@ import {
 import BrandLogo from '../../assets/brand-logo';
 
 const items = [
-  { title: "Dashboard", url: "/dashboard/teacher", icon: LayoutDashboard },
-  { title: "Doubt Requests", url: "/dashboard/teacher/requests", icon: Inbox },
-  { title: "Live Session", url: "/dashboard/teacher/session/active", icon: Video },
-  { title: "History", url: "/dashboard/teacher/history", icon: History },
-  { title: "Earnings", url: "/dashboard/teacher/earnings", icon: Wallet },
-  { title: "Profile", url: "/dashboard/teacher/profile", icon: User },
+  { title: 'Dashboard', url: '/dashboard/teacher', icon: LayoutDashboard },
+  { title: 'Doubt Requests', url: '/dashboard/teacher/requests', icon: Inbox },
+  { title: 'Live Session', url: '/dashboard/teacher/session/active', icon: Video },
+  { title: 'History', url: '/dashboard/teacher/history', icon: History },
+  { title: 'Earnings', url: '/dashboard/teacher/earnings', icon: Wallet },
+  { title: 'Profile', url: '/dashboard/teacher/profile', icon: User },
 ];
 
 export function TeacherSidebar() {

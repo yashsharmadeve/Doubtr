@@ -1,15 +1,15 @@
-import { Camera, Mail, Phone, MapPin, Award, Edit3, Star } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
+import { Camera, Mail, Phone, MapPin, Award, Edit3, Star } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 
-const subjects = ["Mathematics", "Physics"];
-const classes = ["9", "10", "11", "12"];
-const boards = ["CBSE", "ICSE"];
-const languages = ["English", "Hindi"];
+const subjects = ['Mathematics', 'Physics'];
+const classes = ['9', '10', '11', '12'];
+const boards = ['CBSE', 'ICSE'];
+const languages = ['English', 'Hindi'];
 
 export default function ProfileClient() {
   return (
@@ -31,12 +31,18 @@ export default function ProfileClient() {
             <h1 className="text-3xl font-serif">Priya Nair</h1>
             <p className="text-muted-foreground">Mathematics & Physics · 8 yrs experience</p>
             <div className="flex flex-wrap gap-2 mt-2">
-              <Badge className="bg-gradient-primary text-primary-foreground border-0">Verified</Badge>
-              <Badge variant="outline" className="flex items-center gap-1"><Star className="h-3 w-3 fill-accent text-accent" /> 4.9 · 187 reviews</Badge>
+              <Badge className="bg-gradient-primary text-primary-foreground border-0">
+                Verified
+              </Badge>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <Star className="h-3 w-3 fill-accent text-accent" /> 4.9 · 187 reviews
+              </Badge>
               <Badge variant="outline">Joined Mar 2024</Badge>
             </div>
           </div>
-          <Button variant="outline" className="rounded-xl"><Edit3 className="h-4 w-4 mr-2" /> Edit profile</Button>
+          <Button variant="outline" className="rounded-xl">
+            <Edit3 className="h-4 w-4 mr-2" /> Edit profile
+          </Button>
         </div>
       </Card>
 
@@ -72,7 +78,10 @@ export default function ProfileClient() {
 
           <div className="space-y-1.5">
             <Label className="text-xs">About me</Label>
-            <Textarea defaultValue="Patient and concept-first teacher with 8 years of experience helping students master Maths & Physics for CBSE and ICSE boards." rows={3} />
+            <Textarea
+              defaultValue="Patient and concept-first teacher with 8 years of experience helping students master Maths & Physics for CBSE and ICSE boards."
+              rows={3}
+            />
           </div>
 
           <div className="pt-3 border-t border-border space-y-4">
@@ -81,16 +90,25 @@ export default function ProfileClient() {
               <Label className="text-xs">Subjects</Label>
               <div className="flex flex-wrap gap-2 mt-2">
                 {subjects.map((s) => (
-                  <span key={s} className="px-3 py-1.5 rounded-full bg-gradient-primary text-primary-foreground text-sm font-medium">{s}</span>
+                  <span
+                    key={s}
+                    className="px-3 py-1.5 rounded-full bg-gradient-primary text-primary-foreground text-sm font-medium"
+                  >
+                    {s}
+                  </span>
                 ))}
-                <button className="px-3 py-1.5 rounded-full border border-dashed border-border text-sm text-muted-foreground hover:bg-muted">+ Add</button>
+                <button className="px-3 py-1.5 rounded-full border border-dashed border-border text-sm text-muted-foreground hover:bg-muted">
+                  + Add
+                </button>
               </div>
             </div>
             <div>
               <Label className="text-xs">Classes</Label>
               <div className="flex flex-wrap gap-2 mt-2">
                 {classes.map((c) => (
-                  <span key={c} className="px-3 py-1.5 rounded-full bg-muted text-sm font-medium">Class {c}</span>
+                  <span key={c} className="px-3 py-1.5 rounded-full bg-muted text-sm font-medium">
+                    Class {c}
+                  </span>
                 ))}
               </div>
             </div>
@@ -98,13 +116,21 @@ export default function ProfileClient() {
               <div>
                 <Label className="text-xs">Boards</Label>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {boards.map((b) => <Badge key={b} variant="outline">{b}</Badge>)}
+                  {boards.map((b) => (
+                    <Badge key={b} variant="outline">
+                      {b}
+                    </Badge>
+                  ))}
                 </div>
               </div>
               <div>
                 <Label className="text-xs">Languages</Label>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {languages.map((l) => <Badge key={l} variant="outline">{l}</Badge>)}
+                  {languages.map((l) => (
+                    <Badge key={l} variant="outline">
+                      {l}
+                    </Badge>
+                  ))}
                 </div>
               </div>
             </div>
@@ -120,9 +146,15 @@ export default function ProfileClient() {
           <Card className="p-6 rounded-2xl border-border/70">
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-3"><Mail className="h-4 w-4 text-muted-foreground" /> priya.nair@email.com</li>
-              <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-muted-foreground" /> +91 99887 65432</li>
-              <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-muted-foreground" /> Pune, India</li>
+              <li className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-muted-foreground" /> priya.nair@email.com
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-muted-foreground" /> +91 99887 65432
+              </li>
+              <li className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-muted-foreground" /> Pune, India
+              </li>
             </ul>
           </Card>
 
@@ -133,10 +165,10 @@ export default function ProfileClient() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { t: "Top 1% rated", d: "Across maths tutors", i: "🏆" },
-                { t: "500+ doubts", d: "Answered this year", i: "🎯" },
-                { t: "Quick responder", d: "Avg <2 min", i: "⚡" },
-                { t: "Loved by students", d: "92% repeat rate", i: "💜" },
+                { t: 'Top 1% rated', d: 'Across maths tutors', i: '🏆' },
+                { t: '500+ doubts', d: 'Answered this year', i: '🎯' },
+                { t: 'Quick responder', d: 'Avg <2 min', i: '⚡' },
+                { t: 'Loved by students', d: '92% repeat rate', i: '💜' },
               ].map((a) => (
                 <div key={a.t} className="p-3 rounded-xl border border-border/70 hover:bg-muted/30">
                   <div className="text-2xl">{a.i}</div>

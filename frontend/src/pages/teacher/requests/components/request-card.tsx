@@ -5,10 +5,7 @@ import { Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import {
-  requestTypeIcon,
-  type TeacherRequest,
-} from '@/lib/teacher-requests-data';
+import { requestTypeIcon, type TeacherRequest } from '@/lib/teacher-requests-data';
 
 type RequestCardProps = {
   request: TeacherRequest;

@@ -4,7 +4,6 @@ import LiveSessionChatPanel, {
   type LiveSessionMessage,
 } from '@/components/shared/live-session/live-session-chat-panel';
 import LiveSessionVideoPanel from '@/components/shared/live-session/live-session-video-panel';
-import { Badge } from 'lucide-react';
 
 const initialMessages: LiveSessionMessage[] = [
   { from: 'teacher', text: 'Hi Aarav! What topic are we tackling today?', time: '5:30 PM' },
@@ -17,7 +16,9 @@ const LiveSessionClient = ({ id }: { id: string }) => {
     <div className="px-6 lg:px-10 py-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <div className="text-xs uppercase tracking-widest text-muted-foreground">Live session · {id}</div>
+          <div className="text-xs uppercase tracking-widest text-muted-foreground">
+            Live session · {id}
+          </div>
           <h1 className="text-2xl font-serif mt-1">Aarav Sharma · Trigonometric identities</h1>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 text-sm font-medium">

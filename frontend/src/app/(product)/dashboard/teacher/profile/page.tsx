@@ -1,7 +1,7 @@
-import ProfileClient from "@/pages/teacher/profile/ProfileClient"
+import ProfileClient from '@/pages/teacher/profile/ProfileClient';
 
 const ProfilePage = () => {
-  return <ProfileClient />
-}
+  return <ProfileClient />;
+};
 
-export default ProfilePage
+export default ProfilePage;

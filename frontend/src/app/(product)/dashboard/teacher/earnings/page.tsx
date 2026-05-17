@@ -1,7 +1,7 @@
-import EarningsClient from "@/pages/teacher/earnings/EarningsClient";
+import EarningsClient from '@/pages/teacher/earnings/EarningsClient';
 
 const EarningsPage = () => {
-  return <EarningsClient />
-}
+  return <EarningsClient />;
+};
 
 export default EarningsPage;

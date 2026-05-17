@@ -1,12 +1,12 @@
 'use client';
 
-import { Bell, Search } from "lucide-react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { TeacherSidebar } from "@/components/sidebar/teacher-sidebar";
-import { usePathname } from "next/dist/client/components/navigation";
-import { Switch } from "@/components/ui/switch";
+import { Bell, Search } from 'lucide-react';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { TeacherSidebar } from '@/components/sidebar/teacher-sidebar';
+import { usePathname } from 'next/dist/client/components/navigation';
+import { Switch } from '@/components/ui/switch';
 
 export default function TeacherShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -29,7 +29,9 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
             </div>
             <div className="flex-1 md:hidden" />
             <div className="hidden sm:flex items-center gap-2 mr-2">
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Available</span>
+              <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                Available
+              </span>
               <Switch defaultChecked />
             </div>
             <Button variant="ghost" size="icon" className="rounded-full">

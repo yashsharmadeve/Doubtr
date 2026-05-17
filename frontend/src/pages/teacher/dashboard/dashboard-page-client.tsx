@@ -137,7 +137,11 @@ export default function DashboardPageClient() {
                   <Button variant="ghost" size="sm" className="rounded-lg">
                     Decline
                   </Button>
-                  <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground rounded-lg">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="bg-gradient-primary text-primary-foreground rounded-lg"
+                  >
                     <Link href={`/teacher/session/${request.id}`}>
                       <Video className="h-3.5 w-3.5 mr-1" /> Accept
                     </Link>

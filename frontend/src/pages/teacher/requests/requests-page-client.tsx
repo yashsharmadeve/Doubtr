@@ -4,10 +4,7 @@ import { useState } from 'react';
 import { RequestsHeader } from '@/pages/teacher/requests/components/requests-header';
 import { RequestsFilters } from '@/pages/teacher/requests/components/requests-filters';
 import { RequestCard } from '@/pages/teacher/requests/components/request-card';
-import {
-  teacherRequests,
-  type RequestType,
-} from '@/lib/teacher-requests-data';
+import { teacherRequests, type RequestType } from '@/lib/teacher-requests-data';
 
 export default function RequestsPageClient() {
   const [activeTab, setActiveTab] = useState<RequestType>('All');
