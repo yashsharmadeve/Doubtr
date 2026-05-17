@@ -1,4 +1,4 @@
-import HistoryClient from '@/pages/student/history/HistoryClient';
+import HistoryClient from '@/page/student/history/HistoryClient';
 
 const HistoryPage = () => {
   return <HistoryClient />;

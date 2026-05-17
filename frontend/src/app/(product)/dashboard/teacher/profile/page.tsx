@@ -1,4 +1,4 @@
-import ProfileClient from '@/pages/teacher/profile/ProfileClient';
+import ProfileClient from '@/page/teacher/profile/ProfileClient';
 
 const ProfilePage = () => {
   return <ProfileClient />;

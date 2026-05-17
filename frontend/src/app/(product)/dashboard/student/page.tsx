@@ -1,4 +1,4 @@
-import DashboardPageClient from '@/pages/student/dashboard/dashboard-page-client';
+import DashboardPageClient from '@/page/student/dashboard/dashboard-page-client';
 
 const DashboardPage = () => {
   return <DashboardPageClient />;

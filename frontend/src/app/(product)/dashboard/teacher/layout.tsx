@@ -1,4 +1,4 @@
-import TeacherShell from '@/pages/teacher/components/TeacherShell';
+import TeacherShell from '@/page/teacher/components/TeacherShell';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return <TeacherShell>{children}</TeacherShell>;

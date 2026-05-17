@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { RequestsHeader } from '@/pages/teacher/requests/components/requests-header';
-import { RequestsFilters } from '@/pages/teacher/requests/components/requests-filters';
-import { RequestCard } from '@/pages/teacher/requests/components/request-card';
+import RequestsHeader from '@/components/teacher/requests/requests-header';
+import RequestsFilters from '@/components/teacher/requests/requests-filters';
+import RequestCard from '@/components/teacher/requests/request-card';
 import { teacherRequests, type RequestType } from '@/lib/teacher-requests-data';
 
-export default function RequestsPageClient() {
+const RequestsPageClient = () => {
   const [activeTab, setActiveTab] = useState<RequestType>('All');
   const [query, setQuery] = useState('');
 
@@ -35,4 +35,5 @@ export default function RequestsPageClient() {
       </div>
     </div>
   );
-}
+};
+export default RequestsPageClient;

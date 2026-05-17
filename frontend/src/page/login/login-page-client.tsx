@@ -1,8 +1,8 @@
 'use client';
 
-import LoginFormPanel from '@/pages/login/components/login-form-panel';
-import LoginHeroPanel from '@/pages/login/components/login-hero-panel';
-import LoginTopNav from '@/pages/login/components/login-top-nav';
+import LoginFormPanel from '@/page/login/components/login-form-panel';
+import LoginHeroPanel from '@/page/login/components/login-hero-panel';
+import LoginTopNav from '@/page/login/components/login-top-nav';
 
 export default function LoginPageClient() {
   return (
