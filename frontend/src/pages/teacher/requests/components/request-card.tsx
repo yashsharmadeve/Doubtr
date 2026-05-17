@@ -11,7 +11,7 @@ type RequestCardProps = {
   request: TeacherRequest;
 };
 
-export function RequestCard({ request }: RequestCardProps) {
+const RequestCard = ({ request }: RequestCardProps) => {
   const Icon = requestTypeIcon[request.type];
 
   return (
@@ -53,3 +53,5 @@ export function RequestCard({ request }: RequestCardProps) {
     </Card>
   );
 }
+
+export default RequestCard;

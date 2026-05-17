@@ -1,6 +1,6 @@
 'use client';
 
-export function RequestsHeader() {
+const RequestsHeader = () => {
   return (
     <div>
       <h1 className="text-4xl font-serif">Doubt requests</h1>
@@ -8,3 +8,5 @@ export function RequestsHeader() {
     </div>
   );
 }
+
+export default RequestsHeader;

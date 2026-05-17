@@ -12,12 +12,12 @@ type RequestsFiltersProps = {
   onQueryChange: (value: string) => void;
 };
 
-export function RequestsFilters({
+const RequestsFilters = ({
   activeTab,
   onTabChange,
   query,
   onQueryChange,
-}: RequestsFiltersProps) {
+}: RequestsFiltersProps) => {
   return (
     <Card className="p-4 rounded-2xl border-border/70">
       <div className="flex flex-col md:flex-row gap-3 md:items-center justify-between">
@@ -50,3 +50,5 @@ export function RequestsFilters({
     </Card>
   );
 }
+
+export default RequestsFilters;
