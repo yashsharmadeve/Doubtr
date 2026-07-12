@@ -30,6 +30,9 @@ export const config: AppConfig = {
   },
   frontend: {
     // Browsers never send a trailing slash in Origin — normalize so CORS matches.
-    url: (process.env.FRONTEND_URL || "http://localhost:3000").replace(/\/+$/, ""),
+    url: (process.env.FRONTEND_URL || "http://localhost:3000").replace(
+      /\/+$/,
+      "",
+    ),
   },
 };
