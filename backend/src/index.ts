@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import { config } from "./config";
 import { errorHandler } from "./middleware/error.middleware";
 import authRoutes from "./modules/auth/auth.routes";
 
@@ -13,14 +14,14 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: config.frontend.url,
     credentials: true,
   },
 });
 
 // Middleware
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+app.use(cors({ origin: config.frontend.url, credentials: true }));
 app.use(express.json());
 
 // Health check

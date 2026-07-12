@@ -29,6 +29,7 @@ export const config: AppConfig = {
     expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as SignOptions["expiresIn"],
   },
   frontend: {
-    url: process.env.FRONTEND_URL || "http://localhost:3000",
+    // Browsers never send a trailing slash in Origin — normalize so CORS matches.
+    url: (process.env.FRONTEND_URL || "http://localhost:3000").replace(/\/+$/, ""),
   },
 };
