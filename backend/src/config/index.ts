@@ -1,34 +1,34 @@
-import dotenv from 'dotenv'
-import type { Secret, SignOptions } from 'jsonwebtoken'
+import dotenv from "dotenv";
+import type { Secret, SignOptions } from "jsonwebtoken";
 
-dotenv.config()
+dotenv.config();
 
 type AppConfig = {
-  port: number | string
-  nodeEnv: string
+  port: number | string;
+  nodeEnv: string;
   db: {
-    url: string
-  }
+    url: string;
+  };
   jwt: {
-    secret: Secret
-    expiresIn: SignOptions['expiresIn']
-  }
+    secret: Secret;
+    expiresIn: SignOptions["expiresIn"];
+  };
   frontend: {
-    url: string
-  }
-}
+    url: string;
+  };
+};
 
 export const config: AppConfig = {
   port: process.env.PORT || 4000,
-  nodeEnv: process.env.NODE_ENV || 'development',
+  nodeEnv: process.env.NODE_ENV || "development",
   db: {
     url: process.env.DATABASE_URL!,
   },
   jwt: {
     secret: process.env.JWT_SECRET!,
-    expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as SignOptions['expiresIn'],
+    expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as SignOptions["expiresIn"],
   },
   frontend: {
-    url: process.env.FRONTEND_URL || 'http://localhost:3000',
+    url: process.env.FRONTEND_URL || "http://localhost:3000",
   },
-}
+};

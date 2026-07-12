@@ -1,8 +1,7 @@
-import { prisma } from '../../lib/prisma'
-import { StudentRegisterInput, TeacherRegisterInput } from './auth.validation'
+import { prisma } from "../../lib/prisma";
+import { StudentRegisterInput, TeacherRegisterInput } from "./auth.validation";
 
 export const authRepository = {
-
   async findUserByEmail(email: string) {
     return prisma.user.findUnique({
       where: { email },
@@ -10,7 +9,7 @@ export const authRepository = {
         student: true,
         teacher: true,
       },
-    })
+    });
   },
 
   async findUserById(id: string) {
@@ -20,7 +19,7 @@ export const authRepository = {
         student: true,
         teacher: true,
       },
-    })
+    });
   },
 
   async createStudent(data: StudentRegisterInput, passwordHash: string) {
@@ -33,10 +32,10 @@ export const authRepository = {
           email: data.email,
           passwordHash,
           phone: data.phone,
-          role: 'STUDENT',
-          provider: 'EMAIL',
+          role: "STUDENT",
+          provider: "EMAIL",
         },
-      })
+      });
 
       const student = await tx.student.create({
         data: {
@@ -49,10 +48,10 @@ export const authRepository = {
           preferredLanguage: data.preferredLanguage,
           subjectPreferences: data.subjectPreferences,
         },
-      })
+      });
 
-      return { user, student }
-    })
+      return { user, student };
+    });
   },
 
   async createTeacher(data: TeacherRegisterInput, passwordHash: string) {
@@ -65,10 +64,10 @@ export const authRepository = {
           passwordHash,
           phone: data.phone,
           avatar: data.avatar,
-          role: 'TEACHER',
-          provider: 'EMAIL',
+          role: "TEACHER",
+          provider: "EMAIL",
         },
-      })
+      });
 
       const teacher = await tx.teacher.create({
         data: {
@@ -85,7 +84,9 @@ export const authRepository = {
           availableTimeSlots: data.availableTimeSlots,
           availableDays: data.availableDays,
           rateType: data.rateType,
-          ...(data.sessionRate !== undefined && { sessionRate: data.sessionRate }),
+          ...(data.sessionRate !== undefined && {
+            sessionRate: data.sessionRate,
+          }),
           upiId: data.upiId,
           bankDetails: data.bankDetails,
           govtIdType: data.govtIdType,
@@ -94,10 +95,9 @@ export const authRepository = {
           city: data.city,
           state: data.state,
         },
-      })
+      });
 
-      return { user, teacher }
-    })
+      return { user, teacher };
+    });
   },
-
-}
+};

@@ -13,7 +13,7 @@ const navItems = [
 ];
 
 export default function HomeHeader() {
-  const { isAuthenticated } = useCurrentUser()
+  const { isAuthenticated } = useCurrentUser();
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
       <nav className="container flex items-center justify-between h-16">
@@ -30,28 +30,26 @@ export default function HomeHeader() {
             </a>
           ))}
         </div>
-        {
-          isAuthenticated ? (
-            <Button asChild size="sm" className="hidden sm:inline-flex">
-              <Link href="/dashboard">Dashboard</Link>
+        {isAuthenticated ? (
+          <Button asChild size="sm" className="hidden sm:inline-flex">
+            <Link href="/dashboard">Dashboard</Link>
+          </Button>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link href="/sign-in">Sign in</Link>
             </Button>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-                <Link href="/sign-in">Sign in</Link>
-              </Button>
-              <Button
-                size="sm"
-                asChild
-                className="rounded-full bg-foreground text-background hover:bg-foreground/90"
-              >
-                <Link href="/register">
-                  Get started <ArrowUpRight className="w-4 h-4 ml-1" />
-                </Link>
-              </Button>
-            </div>
-          )
-        }
+            <Button
+              size="sm"
+              asChild
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90"
+            >
+              <Link href="/register">
+                Get started <ArrowUpRight className="w-4 h-4 ml-1" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </nav>
     </header>
   );

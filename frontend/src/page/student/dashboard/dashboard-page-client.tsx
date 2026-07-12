@@ -12,7 +12,7 @@ import useBreakText from '@/hooks/break-text';
 
 export default function DashboardPageClient() {
   const { user } = useCurrentUser();
-  const { firstWord } = useBreakText({ text: user?.name || "User" })
+  const { firstWord } = useBreakText({ text: user?.name || 'User' });
   return (
     <div className="px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
       <motion.section
@@ -80,8 +80,9 @@ export default function DashboardPageClient() {
                   </div>
                 </div>
                 <div
-                  className={`h-10 w-10 rounded-xl flex items-center justify-center ${stat.tone === 'primary' ? 'bg-gradient-primary' : 'bg-gradient-accent'
-                    }`}
+                  className={`h-10 w-10 rounded-xl flex items-center justify-center ${
+                    stat.tone === 'primary' ? 'bg-gradient-primary' : 'bg-gradient-accent'
+                  }`}
                 >
                   <stat.icon className="h-5 w-5 text-primary-foreground" />
                 </div>

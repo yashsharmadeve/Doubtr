@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/select';
 import { BOARDS, CLASSES, LANGUAGES, SUBJECTS } from '@/lib/register-data';
 import { ChipGroup, Field, SectionHeader } from '@/components/register/register-form-elements';
-import z from 'zod'
+import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useStudentRegister } from '@/hooks/useAuth';
@@ -58,8 +58,14 @@ const studentRegisterSchema = z.object({
 type StudentRegisterFormValues = z.infer<typeof studentRegisterSchema>;
 
 const StudentForm = ({ onBack }: { onBack: () => void }) => {
-  const {mutate: registerStudent, isPending} = useStudentRegister();
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<StudentRegisterFormValues>({
+  const { mutate: registerStudent, isPending } = useStudentRegister();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<StudentRegisterFormValues>({
     resolver: zodResolver(studentRegisterSchema),
     defaultValues: {
       name: '',
@@ -112,47 +118,27 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
         <SectionHeader step="01" title="Basic details" desc="Tell us who you are." />
         <div className="grid sm:grid-cols-2 gap-5">
           <Field label="Full name" icon={User} required>
-            <Input
-            {...register('name')}
-              placeholder="Aarav Sharma"
-            />
+            <Input {...register('name')} placeholder="Aarav Sharma" />
             {errors.name && <p className="text-red-500">{errors.name.message}</p>}
           </Field>
           <Field label="Mobile number" icon={Phone} required>
-            <Input
-            {...register('mobile')}
-              placeholder="+91 98765 43210"
-            />
+            <Input {...register('mobile')} placeholder="+91 98765 43210" />
             {errors.mobile && <p className="text-red-500">{errors.mobile.message}</p>}
           </Field>
           <Field label="Email" icon={Mail} required>
-            <Input
-              type="email"
-              {...register('email')}
-              placeholder="you@school.com"
-            />
+            <Input type="email" {...register('email')} placeholder="you@school.com" />
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </Field>
           <Field label="Password" icon={Lock} required>
-            <Input
-              type="password"
-              {...register('password')}
-              placeholder="Minimum 8 characters"
-            />
+            <Input type="password" {...register('password')} placeholder="Minimum 8 characters" />
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </Field>
           <Field label="City" icon={MapPin} required>
-            <Input
-              {...register('city')}
-              placeholder="Aarav Sharma"
-            />
+            <Input {...register('city')} placeholder="Aarav Sharma" />
             {errors.city && <p className="text-red-500">{errors.city.message}</p>}
           </Field>
           <Field label="State" icon={MapPin} required>
-            <Input
-              {...register('state')}
-              placeholder="Aarav Sharma"
-            />
+            <Input {...register('state')} placeholder="Aarav Sharma" />
             {errors.state && <p className="text-red-500">{errors.state.message}</p>}
           </Field>
         </div>
@@ -161,13 +147,13 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
       <section>
         <SectionHeader step="02" title="Academic info" desc="Match you with the right tutors." />
         <div className="grid sm:grid-cols-2 gap-5">
-
           <Field label="School" icon={School} required>
-            <Input 
-            {...register('school')}
-            // value={form.school} 
-            // onChange={(e) => set('school', e.target.value)} 
-            placeholder="School name" />
+            <Input
+              {...register('school')}
+              // value={form.school}
+              // onChange={(e) => set('school', e.target.value)}
+              placeholder="School name"
+            />
             {errors.school && <p className="text-red-500">{errors.school.message}</p>}
           </Field>
 
@@ -253,7 +239,9 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
               onToggle={toggleSubject}
               options={SUBJECTS}
             />
-            {errors.subjectPreferences && <p className="text-red-500 text-sm">{errors.subjectPreferences.message}</p>}
+            {errors.subjectPreferences && (
+              <p className="text-red-500 text-sm">{errors.subjectPreferences.message}</p>
+            )}
           </Field>
           {/* <Field label="Doubt type preference">
             <ChipGroup

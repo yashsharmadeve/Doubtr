@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ease } from '@/lib/login-animations';
-import { useLogin } from '@/hooks/useAuth'
+import { useLogin } from '@/hooks/useAuth';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email address.'),
@@ -54,7 +54,7 @@ function LoginSocialButtons() {
 }
 
 function LoginForm() {
-    const { mutate: login, isPending } = useLogin()
+  const { mutate: login, isPending } = useLogin();
   const {
     register,
     handleSubmit,
@@ -68,7 +68,7 @@ function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    login(values)
+    login(values);
     // // TODO: Replace with auth API integration.
     // console.log('Login form values:', values);
   };
@@ -89,9 +89,7 @@ function LoginForm() {
             {...register('email')}
           />
         </div>
-        {errors.email ? (
-          <p className="text-xs text-destructive">{errors.email.message}</p>
-        ) : null}
+        {errors.email ? <p className="text-xs text-destructive">{errors.email.message}</p> : null}
       </div>
 
       <div className="space-y-2">

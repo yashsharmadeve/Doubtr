@@ -166,11 +166,7 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </Field>
           <Field label="Password" icon={Lock} required>
-            <Input
-              type="password"
-              {...register('password')}
-              placeholder="Minimum 8 characters"
-            />
+            <Input type="password" {...register('password')} placeholder="Minimum 8 characters" />
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </Field>
         </div>
@@ -338,9 +334,7 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
           <div className="grid sm:grid-cols-3 gap-5">
             <Field
               label={
-                rateType === 'per-question'
-                  ? 'Charge per question (INR)'
-                  : 'Rate per minute (INR)'
+                rateType === 'per-question' ? 'Charge per question (INR)' : 'Rate per minute (INR)'
               }
             >
               <Input type="number" min={0} {...register('rate')} placeholder="50" />

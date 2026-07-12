@@ -1,32 +1,28 @@
-import { Router } from 'express'
-import { authController } from './auth.controller'
-import { validate } from '../../middleware/validate.middleware'
+import { Router } from "express";
+import { authController } from "./auth.controller";
+import { validate } from "../../middleware/validate.middleware";
 import {
   loginSchema,
   studentRegisterSchema,
   teacherRegisterSchema,
-} from './auth.validation'
+} from "./auth.validation";
 
-const router = Router()
+const router = Router();
 
 // POST /auth/student/register
 router.post(
-  '/student/register',
+  "/student/register",
   validate(studentRegisterSchema),
-  authController.registerStudent
-)
+  authController.registerStudent,
+);
 
 // POST /auth/teacher/register
 router.post(
-  '/teacher/register',
+  "/teacher/register",
   validate(teacherRegisterSchema),
-  authController.registerTeacher
-)
+  authController.registerTeacher,
+);
 
-router.post(
-  '/login',
-  validate(loginSchema),
-  authController.login
-)
+router.post("/login", validate(loginSchema), authController.login);
 
-export default router
+export default router;

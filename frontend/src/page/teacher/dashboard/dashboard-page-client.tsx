@@ -54,7 +54,7 @@ const upcoming = [
 
 export default function DashboardPageClient() {
   const { user } = useCurrentUser();
-  const { firstWord } = useBreakText({ text: user?.name || "User" })
+  const { firstWord } = useBreakText({ text: user?.name || 'User' });
   return (
     <div className="px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
       <motion.div
