@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { TeacherSidebar } from '@/components/sidebar/teacher-sidebar';
 import { usePathname } from 'next/dist/client/components/navigation';
 import { Switch } from '@/components/ui/switch';
+import UserMenu from '@/components/shared/menu/user-menu';
 
 export default function TeacherShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -37,6 +38,9 @@ export default function TeacherShell({ children }: { children: React.ReactNode }
             <Button variant="ghost" size="icon" className="rounded-full">
               <Bell className="h-4.5 w-4.5" />
             </Button>
+            <div className="ml-auto">
+              <UserMenu role="student" />
+            </div>
           </header>
 
           <main key={pathname} className="flex-1 overflow-auto">

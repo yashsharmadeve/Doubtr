@@ -7,8 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { recent, stats, subjects, upcoming } from '@/lib/student-dashboard-data';
+import { useCurrentUser } from '@/hooks/useAuth';
+import useBreakText from '@/hooks/break-text';
 
 export default function DashboardPageClient() {
+  const { user } = useCurrentUser();
+  const { firstWord } = useBreakText({ text: user?.name || "User" })
   return (
     <div className="px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
       <motion.section
@@ -25,7 +29,7 @@ export default function DashboardPageClient() {
               <span className="font-medium">Welcome back</span>
             </div>
             <h1 className="text-4xl lg:text-5xl font-serif tracking-tight">
-              Hello, <span className="text-gradient">Aarav</span> -- ready to learn?
+              Hello, <span className="text-gradient">{firstWord}</span> -- ready to learn?
             </h1>
             <p className="text-muted-foreground text-base max-w-xl">
               You&#39;re on a 7-day streak. A teacher is online for your trigonometry doubts right
@@ -76,9 +80,8 @@ export default function DashboardPageClient() {
                   </div>
                 </div>
                 <div
-                  className={`h-10 w-10 rounded-xl flex items-center justify-center ${
-                    stat.tone === 'primary' ? 'bg-gradient-primary' : 'bg-gradient-accent'
-                  }`}
+                  className={`h-10 w-10 rounded-xl flex items-center justify-center ${stat.tone === 'primary' ? 'bg-gradient-primary' : 'bg-gradient-accent'
+                    }`}
                 >
                   <stat.icon className="h-5 w-5 text-primary-foreground" />
                 </div>

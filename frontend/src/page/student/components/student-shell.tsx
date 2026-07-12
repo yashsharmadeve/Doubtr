@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { StudentSidebar } from '@/components/sidebar/student-sidebar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import UserMenu from '@/components/shared/menu/user-menu';
 
 type StudentShellProps = {
   children: React.ReactNode;
@@ -35,6 +36,10 @@ export default function StudentShell({ children }: StudentShellProps) {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Bell className="h-4.5 w-4.5" />
             </Button>
+
+            <div className="ml-auto">
+              <UserMenu role="student" />
+            </div>
           </header>
 
           <main key={pathname} className="flex-1 overflow-auto">

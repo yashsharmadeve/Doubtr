@@ -14,8 +14,9 @@ import {
   Wallet,
 } from 'lucide-react';
 import { useState } from 'react';
-import type { FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -26,7 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toast } from '@/hooks/use-toast';
 import {
   BOARDS,
   CLASSES,
@@ -43,101 +43,135 @@ import {
   FileDrop,
   SectionHeader,
 } from '@/components/register/register-form-elements';
+import { useTeacherRegister } from '@/hooks/useAuth';
+
+const teacherRegisterSchema = z.object({
+  name: z.string().min(1, { message: 'Full name is required' }),
+  phone: z.string().min(1, { message: 'Mobile number is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
+  qualifications: z.string().min(1, { message: 'Qualification is required' }),
+  experience: z.string().min(1, { message: 'Experience is required' }),
+  currentRole: z.string().min(1, { message: 'Current role is required' }),
+  specializations: z.array(z.string()),
+  classes: z.array(z.string()),
+  subjects: z.array(z.string()),
+  boards: z.array(z.string()),
+  languages: z.array(z.string()),
+  teachingModes: z.array(z.string()),
+  availableTimeSlots: z.array(z.string()),
+  availableDays: z.array(z.string()),
+  rateType: z.enum(['per-question', 'per-minute']),
+  rate: z.string(),
+  upiId: z.string(),
+  bankDetails: z.string(),
+});
+
+type TeacherRegisterFormValues = z.infer<typeof teacherRegisterSchema>;
 
 const TeacherForm = ({ onBack }: { onBack: () => void }) => {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    name: '',
-    mobile: '',
-    otp: '',
-    email: '',
-    password: '',
-    qualification: '',
-    specialization: [] as string[],
-    experience: '',
-    currentRole: '',
-    classes: [] as string[],
-    subjects: [] as string[],
-    boards: [] as string[],
-    languages: [] as string[],
-    modes: [] as string[],
-    timings: [] as string[],
-    days: [] as string[],
-    rateType: 'per-question',
-    rate: '',
-    upi: '',
-    bank: '',
+  const { mutate: registerTeacher, isPending } = useTeacherRegister();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<TeacherRegisterFormValues>({
+    resolver: zodResolver(teacherRegisterSchema),
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      password: '',
+      qualifications: '',
+      experience: '',
+      currentRole: '',
+      specializations: [],
+      classes: [],
+      subjects: [],
+      boards: [],
+      languages: [],
+      teachingModes: [],
+      availableTimeSlots: [],
+      availableDays: [],
+      rateType: 'per-question',
+      rate: '',
+      upiId: '',
+      bankDetails: '',
+    },
   });
+
   const [files, setFiles] = useState<{ id?: string; degree?: string; photo?: string }>({});
 
-  const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
-    setForm((s) => ({ ...s, [k]: v }));
+  const currentRole = watch('currentRole');
+  const specializations = watch('specializations');
+  const classes = watch('classes');
+  const subjects = watch('subjects');
+  const boards = watch('boards');
+  const languages = watch('languages');
+  const teachingModes = watch('teachingModes');
+  const availableTimeSlots = watch('availableTimeSlots');
+  const availableDays = watch('availableDays');
+  const rateType = watch('rateType');
 
-  const toggle = (k: keyof typeof form, v: string) =>
-    setForm((s) => {
-      const arr = s[k] as string[];
-      return {
-        ...s,
-        [k]: arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v],
-      };
+  const toggle = (key: keyof TeacherRegisterFormValues, value: string) => {
+    const current = (watch(key) as string[]) ?? [];
+    setValue(
+      key,
+      current.includes(value) ? current.filter((x) => x !== value) : [...current, value],
+      { shouldValidate: true },
+    );
+  };
+
+  const submit = (data: TeacherRegisterFormValues) => {
+    registerTeacher({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      qualifications: data.qualifications,
+      specializations: data.specializations,
+      experience: data.experience ? Number(data.experience) : undefined,
+      currentRole: data.currentRole || undefined,
+      classes: data.classes,
+      subjects: data.subjects,
+      boards: data.boards,
+      languages: data.languages.length ? data.languages : undefined,
+      teachingModes: data.teachingModes,
+      availableTimeSlots: data.availableTimeSlots,
+      availableDays: data.availableDays,
+      rateType: data.rateType === 'per-minute' ? 'PER_MINUTE' : 'PER_QUESTION',
+      sessionRate: data.rate ? Number(data.rate) : undefined,
+      upiId: data.upiId || undefined,
+      bankDetails: data.bankDetails || undefined,
     });
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.password || !form.mobile) {
-      toast({
-        title: 'Missing fields',
-        description: 'Please complete the required basic details.',
-      });
-      return;
-    }
-    toast({ title: 'Application submitted', description: 'Teacher profile created (UI demo).' });
-    router.push('/');
   };
 
   return (
-    <form onSubmit={submit} className="space-y-10">
+    <form onSubmit={handleSubmit(submit)} className="space-y-10">
       <section>
         <SectionHeader step="01" title="Basic details" desc="The essentials." />
         <div className="grid sm:grid-cols-2 gap-5">
           <Field label="Full name" icon={User} required>
-            <Input
-              value={form.name}
-              onChange={(e) => set('name', e.target.value)}
-              placeholder="Dr. Priya Mehta"
-            />
+            <Input {...register('name')} placeholder="Dr. Priya Mehta" />
+            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
           </Field>
           <Field label="Mobile number" icon={Phone} required>
-            <div className="flex gap-2">
-              <Input
-                value={form.mobile}
-                onChange={(e) => set('mobile', e.target.value)}
-                placeholder="+91 98765 43210"
-              />
-              <Input
-                value={form.otp}
-                onChange={(e) => set('otp', e.target.value)}
-                placeholder="OTP"
-                className="w-24"
-                maxLength={6}
-              />
-            </div>
+            <Input {...register('phone')} placeholder="+91 98765 43210" />
+            {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
           </Field>
           <Field label="Email" icon={Mail} required>
-            <Input
-              type="email"
-              value={form.email}
-              onChange={(e) => set('email', e.target.value)}
-              placeholder="teacher@doubtr.com"
-            />
+            <Input type="email" {...register('email')} placeholder="teacher@doubtr.com" />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </Field>
           <Field label="Password" icon={Lock} required>
             <Input
               type="password"
-              value={form.password}
-              onChange={(e) => set('password', e.target.value)}
+              {...register('password')}
               placeholder="Minimum 8 characters"
             />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </Field>
         </div>
       </section>
@@ -150,23 +184,20 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
         />
         <div className="grid sm:grid-cols-2 gap-5">
           <Field label="Highest qualification" icon={GraduationCap} required>
-            <Input
-              value={form.qualification}
-              onChange={(e) => set('qualification', e.target.value)}
-              placeholder="M.Sc. Physics, B.Ed."
-            />
+            <Input {...register('qualifications')} placeholder="M.Sc. Physics, B.Ed." />
+            {errors.qualifications && (
+              <p className="text-red-500">{errors.qualifications.message}</p>
+            )}
           </Field>
           <Field label="Experience (years)" icon={Briefcase} required>
-            <Input
-              type="number"
-              min={0}
-              value={form.experience}
-              onChange={(e) => set('experience', e.target.value)}
-              placeholder="5"
-            />
+            <Input type="number" min={0} {...register('experience')} placeholder="5" />
+            {errors.experience && <p className="text-red-500">{errors.experience.message}</p>}
           </Field>
           <Field label="Current role" icon={Briefcase} required>
-            <Select value={form.currentRole} onValueChange={(v) => set('currentRole', v)}>
+            <Select
+              value={currentRole || undefined}
+              onValueChange={(v) => setValue('currentRole', v, { shouldValidate: true })}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
@@ -178,12 +209,13 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
                 ))}
               </SelectContent>
             </Select>
+            {errors.currentRole && <p className="text-red-500">{errors.currentRole.message}</p>}
           </Field>
           <Field label="Specialization (subjects)">
             <ChipGroup
               options={SUBJECTS}
-              values={form.specialization}
-              onToggle={(v) => toggle('specialization', v)}
+              values={specializations}
+              onToggle={(v) => toggle('specializations', v)}
             />
           </Field>
         </div>
@@ -195,23 +227,19 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
           <Field label="Classes you can teach (6-12)">
             <ChipGroup
               options={CLASSES.map((c) => `Class ${c}`)}
-              values={form.classes}
+              values={classes}
               onToggle={(v) => toggle('classes', v)}
             />
           </Field>
           <Field label="Subjects">
             <ChipGroup
               options={SUBJECTS}
-              values={form.subjects}
+              values={subjects}
               onToggle={(v) => toggle('subjects', v)}
             />
           </Field>
           <Field label="Boards you can handle">
-            <ChipGroup
-              options={BOARDS}
-              values={form.boards}
-              onToggle={(v) => toggle('boards', v)}
-            />
+            <ChipGroup options={BOARDS} values={boards} onToggle={(v) => toggle('boards', v)} />
           </Field>
         </div>
       </section>
@@ -246,12 +274,16 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
           <Field label="Languages you teach in" icon={Languages}>
             <ChipGroup
               options={LANGUAGES}
-              values={form.languages}
+              values={languages}
               onToggle={(v) => toggle('languages', v)}
             />
           </Field>
           <Field label="Mode">
-            <ChipGroup options={MODES} values={form.modes} onToggle={(v) => toggle('modes', v)} />
+            <ChipGroup
+              options={MODES}
+              values={teachingModes}
+              onToggle={(v) => toggle('teachingModes', v)}
+            />
           </Field>
         </div>
       </section>
@@ -262,12 +294,16 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
           <Field label="Available timings" icon={Clock}>
             <ChipGroup
               options={TIME_SLOTS}
-              values={form.timings}
-              onToggle={(v) => toggle('timings', v)}
+              values={availableTimeSlots}
+              onToggle={(v) => toggle('availableTimeSlots', v)}
             />
           </Field>
           <Field label="Days available">
-            <ChipGroup options={DAYS} values={form.days} onToggle={(v) => toggle('days', v)} />
+            <ChipGroup
+              options={DAYS}
+              values={availableDays}
+              onToggle={(v) => toggle('availableDays', v)}
+            />
           </Field>
         </div>
       </section>
@@ -277,8 +313,12 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
         <div className="space-y-5">
           <Field label="Rate type" icon={Wallet}>
             <RadioGroup
-              value={form.rateType}
-              onValueChange={(v) => set('rateType', v)}
+              value={rateType}
+              onValueChange={(v) =>
+                setValue('rateType', v as TeacherRegisterFormValues['rateType'], {
+                  shouldValidate: true,
+                })
+              }
               className="flex flex-wrap gap-3 pt-2"
             >
               {[
@@ -298,32 +338,18 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
           <div className="grid sm:grid-cols-3 gap-5">
             <Field
               label={
-                form.rateType === 'per-question'
+                rateType === 'per-question'
                   ? 'Charge per question (INR)'
                   : 'Rate per minute (INR)'
               }
             >
-              <Input
-                type="number"
-                min={0}
-                value={form.rate}
-                onChange={(e) => set('rate', e.target.value)}
-                placeholder="50"
-              />
+              <Input type="number" min={0} {...register('rate')} placeholder="50" />
             </Field>
             <Field label="UPI ID">
-              <Input
-                value={form.upi}
-                onChange={(e) => set('upi', e.target.value)}
-                placeholder="name@upi"
-              />
+              <Input {...register('upiId')} placeholder="name@upi" />
             </Field>
             <Field label="Bank account (optional)">
-              <Input
-                value={form.bank}
-                onChange={(e) => set('bank', e.target.value)}
-                placeholder="A/C and IFSC"
-              />
+              <Input {...register('bankDetails')} placeholder="A/C and IFSC" />
             </Field>
           </div>
         </div>
@@ -336,9 +362,11 @@ const TeacherForm = ({ onBack }: { onBack: () => void }) => {
         <Button
           type="submit"
           size="lg"
+          disabled={isPending}
           className="bg-gradient-primary text-primary-foreground hover:opacity-90 shadow-elegant gap-2"
         >
-          Submit teacher application <ArrowRight className="h-4 w-4" />
+          {isPending ? 'Submitting…' : 'Submit teacher application'}{' '}
+          <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
     </form>

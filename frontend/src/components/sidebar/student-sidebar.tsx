@@ -17,6 +17,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import BrandLogo from '../../assets/brand-logo';
+import { useCurrentUser } from '@/hooks/useAuth';
 
 const items = [
   { title: 'Dashboard', url: '/dashboard/student', icon: LayoutDashboard },
@@ -30,6 +31,7 @@ export function StudentSidebar() {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const pathname = usePathname();
+  const {user} = useCurrentUser();
 
   const isActive = (url: string) => {
     if (!pathname) return false;
@@ -85,17 +87,19 @@ export function StudentSidebar() {
           <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/50 p-3">
             <div className="flex items-center gap-2.5">
               <div className="h-9 w-9 rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground text-sm font-semibold">
-                A
+                {user?.name?.charAt(0) || "A"}
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-medium truncate">Aarav Sharma</div>
-                <div className="text-xs text-muted-foreground truncate">Class 10 · CBSE</div>
+                <div className="text-sm font-medium truncate">{user?.name || "User"}</div>
+                <div className="text-xs text-muted-foreground truncate">
+                  {user?.profile && 'class' in user.profile ? user.profile.class : 'Class 10'} · {user?.profile && 'board' in user.profile ? user.profile.board : 'CBSE'}
+                </div>
               </div>
             </div>
           </div>
         ) : (
           <div className="h-9 w-9 mx-auto rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground text-sm font-semibold">
-            A
+            {user?.name?.charAt(0) || "A"}
           </div>
         )}
       </SidebarFooter>

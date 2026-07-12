@@ -1,11 +1,23 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { ArrowRight, Lock, Mail } from 'lucide-react';
 import Link from 'next/link';
-
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ease } from '@/lib/login-animations';
+import { useLogin } from '@/hooks/useAuth'
+
+const loginSchema = z.object({
+  email: z.email('Please enter a valid email address.'),
+  password: z.string().min(8, 'Password must be at least 8 characters.'),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 function LoginSocialButtons() {
   return (
@@ -42,8 +54,27 @@ function LoginSocialButtons() {
 }
 
 function LoginForm() {
+    const { mutate: login, isPending } = useLogin()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = async (values: LoginFormValues) => {
+    login(values)
+    // // TODO: Replace with auth API integration.
+    // console.log('Login form values:', values);
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <div className="relative">
@@ -53,8 +84,14 @@ function LoginForm() {
             type="email"
             placeholder="you@doubtr.com"
             className="h-11 rounded-xl pl-10"
+            aria-invalid={Boolean(errors.email)}
+            autoComplete="email"
+            {...register('email')}
           />
         </div>
+        {errors.email ? (
+          <p className="text-xs text-destructive">{errors.email.message}</p>
+        ) : null}
       </div>
 
       <div className="space-y-2">
@@ -71,15 +108,22 @@ function LoginForm() {
             type="password"
             placeholder="••••••••"
             className="h-11 rounded-xl pl-10"
+            aria-invalid={Boolean(errors.password)}
+            autoComplete="current-password"
+            {...register('password')}
           />
         </div>
+        {errors.password ? (
+          <p className="text-xs text-destructive">{errors.password.message}</p>
+        ) : null}
       </div>
 
       <Button
         type="submit"
+        disabled={isPending}
         className="w-full h-12 rounded-xl bg-gradient-primary text-primary-foreground shadow-elegant hover:opacity-95 transition-opacity text-base"
       >
-        Sign in
+        {isPending ? 'Signing in...' : 'Sign in'}
         <ArrowRight className="h-4 w-4" />
       </Button>
     </form>

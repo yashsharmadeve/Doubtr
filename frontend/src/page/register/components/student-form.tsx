@@ -8,13 +8,12 @@ import {
   Languages,
   Lock,
   Mail,
+  MapPin,
   Phone,
-  Sparkles,
+  School,
+  // Sparkles,
   User,
 } from 'lucide-react';
-import { useState } from 'react';
-import type { FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -25,80 +24,136 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toast } from '@/hooks/use-toast';
-import { BOARDS, CLASSES, DOUBT_TYPES, LANGUAGES, STREAMS, SUBJECTS } from '@/lib/register-data';
+import { BOARDS, CLASSES, LANGUAGES, SUBJECTS } from '@/lib/register-data';
 import { ChipGroup, Field, SectionHeader } from '@/components/register/register-form-elements';
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useStudentRegister } from '@/hooks/useAuth';
+import type { StudentRegisterInput } from '@/types/auth';
+
+const BOARD_MAP: Record<string, NonNullable<StudentRegisterInput['board']>> = {
+  CBSE: 'CBSE',
+  ICSE: 'ICSE',
+  'State Board': 'STATE_BOARD',
+};
+
+const studentRegisterSchema = z.object({
+  name: z.string().min(1, { message: 'Full name is required' }),
+  mobile: z.string().min(1, { message: 'Mobile number is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
+  city: z.string().min(1, { message: 'City is required' }),
+  state: z.string().min(1, { message: 'State is required' }),
+  school: z.string().min(1, { message: 'School is required' }),
+  classLvl: z.string().min(1, { message: 'Class is required' }),
+  board: z.string().min(1, { message: 'Board is required' }),
+  // stream: z.string().min(1),
+  language: z.string().min(1, { message: 'Language is required' }),
+  subjectPreferences: z.array(z.string().min(1, { message: 'Subject is required' })),
+  // doubtTypes: z.array(z.string().min(1)),
+  // preferredLanguage: z.string().min(1),
+});
+
+type StudentRegisterFormValues = z.infer<typeof studentRegisterSchema>;
 
 const StudentForm = ({ onBack }: { onBack: () => void }) => {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    password: '',
-    classLvl: '',
-    board: '',
-    stream: '',
-    language: 'English',
-    subjects: [] as string[],
-    doubtTypes: [] as string[],
+  const {mutate: registerStudent, isPending} = useStudentRegister();
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<StudentRegisterFormValues>({
+    resolver: zodResolver(studentRegisterSchema),
+    defaultValues: {
+      name: '',
+      mobile: '',
+      email: '',
+      password: '',
+      city: '',
+      state: '',
+      classLvl: '',
+      board: '',
+      school: '',
+      language: 'English',
+      subjectPreferences: [] as string[],
+    },
   });
 
-  const showStream = form.classLvl === '11' || form.classLvl === '12';
+  const classLvl = watch('classLvl');
+  const board = watch('board');
+  const language = watch('language');
+  const subjectPreferences = watch('subjectPreferences');
 
-  const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
-    setForm((s) => ({ ...s, [k]: v }));
+  const toggleSubject = (value: string) => {
+    const current = subjectPreferences ?? [];
+    setValue(
+      'subjectPreferences',
+      current.includes(value) ? current.filter((x) => x !== value) : [...current, value],
+      { shouldValidate: true },
+    );
+  };
 
-  const toggle = (k: 'subjects' | 'doubtTypes', v: string) =>
-    setForm((s) => ({
-      ...s,
-      [k]: s[k].includes(v) ? s[k].filter((x) => x !== v) : [...s[k], v],
-    }));
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.password || !form.mobile || !form.classLvl) {
-      toast({ title: 'Missing fields', description: 'Please complete all required fields.' });
-      return;
-    }
-    toast({ title: 'Welcome to Doubtr', description: 'Student account created (UI demo).' });
-    router.push('/');
+  const submit = (data: StudentRegisterFormValues) => {
+    registerStudent({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.mobile,
+      class: data.classLvl,
+      board: BOARD_MAP[data.board],
+      school: data.school,
+      city: data.city,
+      state: data.state,
+      preferredLanguage: data.language,
+      subjectPreferences: data.subjectPreferences,
+    });
   };
 
   return (
-    <form onSubmit={submit} className="space-y-10">
+    <form onSubmit={handleSubmit(submit)} className="space-y-10">
       <section>
         <SectionHeader step="01" title="Basic details" desc="Tell us who you are." />
         <div className="grid sm:grid-cols-2 gap-5">
           <Field label="Full name" icon={User} required>
             <Input
-              value={form.name}
-              onChange={(e) => set('name', e.target.value)}
+            {...register('name')}
               placeholder="Aarav Sharma"
             />
+            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
           </Field>
           <Field label="Mobile number" icon={Phone} required>
             <Input
-              value={form.mobile}
-              onChange={(e) => set('mobile', e.target.value)}
+            {...register('mobile')}
               placeholder="+91 98765 43210"
             />
+            {errors.mobile && <p className="text-red-500">{errors.mobile.message}</p>}
           </Field>
           <Field label="Email" icon={Mail} required>
             <Input
               type="email"
-              value={form.email}
-              onChange={(e) => set('email', e.target.value)}
+              {...register('email')}
               placeholder="you@school.com"
             />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
           </Field>
           <Field label="Password" icon={Lock} required>
             <Input
               type="password"
-              value={form.password}
-              onChange={(e) => set('password', e.target.value)}
+              {...register('password')}
               placeholder="Minimum 8 characters"
             />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          </Field>
+          <Field label="City" icon={MapPin} required>
+            <Input
+              {...register('city')}
+              placeholder="Aarav Sharma"
+            />
+            {errors.city && <p className="text-red-500">{errors.city.message}</p>}
+          </Field>
+          <Field label="State" icon={MapPin} required>
+            <Input
+              {...register('state')}
+              placeholder="Aarav Sharma"
+            />
+            {errors.state && <p className="text-red-500">{errors.state.message}</p>}
           </Field>
         </div>
       </section>
@@ -106,8 +161,21 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
       <section>
         <SectionHeader step="02" title="Academic info" desc="Match you with the right tutors." />
         <div className="grid sm:grid-cols-2 gap-5">
+
+          <Field label="School" icon={School} required>
+            <Input 
+            {...register('school')}
+            // value={form.school} 
+            // onChange={(e) => set('school', e.target.value)} 
+            placeholder="School name" />
+            {errors.school && <p className="text-red-500">{errors.school.message}</p>}
+          </Field>
+
           <Field label="Class" icon={GraduationCap} required>
-            <Select value={form.classLvl} onValueChange={(v) => set('classLvl', v)}>
+            <Select
+              value={classLvl || undefined}
+              onValueChange={(v) => setValue('classLvl', v, { shouldValidate: true })}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select class" />
               </SelectTrigger>
@@ -119,10 +187,14 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
                 ))}
               </SelectContent>
             </Select>
+            {errors.classLvl && <p className="text-red-500">{errors.classLvl.message}</p>}
           </Field>
 
           <Field label="Board" icon={BookOpen} required>
-            <Select value={form.board} onValueChange={(v) => set('board', v)}>
+            <Select
+              value={board || undefined}
+              onValueChange={(v) => setValue('board', v, { shouldValidate: true })}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select board" />
               </SelectTrigger>
@@ -134,9 +206,10 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
                 ))}
               </SelectContent>
             </Select>
+            {errors.board && <p className="text-red-500">{errors.board.message}</p>}
           </Field>
 
-          {showStream && (
+          {/* {showStream && (
             <Field label="Stream" icon={Sparkles} required>
               <Select value={form.stream} onValueChange={(v) => set('stream', v)}>
                 <SelectTrigger>
@@ -151,12 +224,12 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
                 </SelectContent>
               </Select>
             </Field>
-          )}
+          )} */}
 
-          <Field label="Preferred language" icon={Languages}>
+          <Field label="Preferred language" icon={Languages} required>
             <RadioGroup
-              value={form.language}
-              onValueChange={(v) => set('language', v)}
+              value={language}
+              onValueChange={(v) => setValue('language', v, { shouldValidate: true })}
               className="flex gap-3 pt-2"
             >
               {LANGUAGES.map((l) => (
@@ -169,24 +242,26 @@ const StudentForm = ({ onBack }: { onBack: () => void }) => {
                 </label>
               ))}
             </RadioGroup>
+            {errors.language && <p className="text-red-500">{errors.language.message}</p>}
           </Field>
         </div>
 
         <div className="mt-6 space-y-5">
           <Field label="Subject preferences (multi-select)">
             <ChipGroup
+              values={subjectPreferences ?? []}
+              onToggle={toggleSubject}
               options={SUBJECTS}
-              values={form.subjects}
-              onToggle={(v) => toggle('subjects', v)}
             />
+            {errors.subjectPreferences && <p className="text-red-500 text-sm">{errors.subjectPreferences.message}</p>}
           </Field>
-          <Field label="Doubt type preference">
+          {/* <Field label="Doubt type preference">
             <ChipGroup
               options={DOUBT_TYPES}
               values={form.doubtTypes}
               onToggle={(v) => toggle('doubtTypes', v)}
             />
-          </Field>
+          </Field> */}
         </div>
       </section>
 

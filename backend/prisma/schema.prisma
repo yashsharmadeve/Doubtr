@@ -1,0 +1,293 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  APPLE
+}
+
+enum VerificationStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+enum SessionMode {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+enum SessionStatus {
+  PENDING      // waiting for teacher to accept
+  ACTIVE       // session in progress
+  COMPLETED    // ended normally
+  CANCELLED    // cancelled before starting
+  MISSED       // teacher didn't accept in time
+}
+
+enum MessageRole {
+  STUDENT
+  TEACHER
+  SYSTEM
+}
+
+enum RateType {
+  PER_QUESTION
+  PER_MINUTE
+}
+
+// ─────────────────────────────────────────
+// USER (base table for both roles)
+// ─────────────────────────────────────────
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  passwordHash  String?      // null if OAuth login
+  provider      AuthProvider @default(EMAIL)
+  providerId    String?      // Google/Apple user ID
+  role          Role
+  name          String
+  avatar        String?      // URL to profile photo
+  phone         String?
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  student       Student?
+  teacher       Teacher?
+  admin         Admin?
+
+  @@index([email])
+  @@index([role])
+}
+
+// ─────────────────────────────────────────
+// STUDENT
+// ─────────────────────────────────────────
+
+model Student {
+  id              String    @id @default(uuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Academic info
+  class           String?   // "Class 10", "Class 12", "B.Tech 2nd Year"
+  board           String?   // "CBSE", "ICSE", "State Board", "University"
+  school          String?   // School/College name
+  city            String?
+  state           String?
+
+  // Preferences
+  subjectPreferences String[] @default([])
+  preferredLanguage String  @default("English")
+  preferredMode   SessionMode @default(TEXT)
+
+  // Stats
+  totalSessions   Int       @default(0)
+  totalSpent      Float     @default(0)  // in INR
+
+  sessions        Session[] @relation("StudentSessions")
+  ratings         Rating[]
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+// ─────────────────────────────────────────
+// TEACHER
+// ─────────────────────────────────────────
+
+model Teacher {
+  id                  String             @id @default(uuid())
+  userId              String             @unique
+  user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Professional info
+  bio                 String?            // Short description
+  subjects            String[]           // ["Physics", "Maths", "Chemistry"]
+  specializations     String[]           @default([]) // subjects the teacher specialises in
+  languages           String[]           @default(["English", "Hindi"])
+  qualifications      String?            // "B.Tech IIT Delhi", "M.Sc Physics"
+  experience          Int?               // years of experience
+  currentRole         String?            // "School Teacher", "Coaching Faculty", "Freelancer"
+  city                String?
+  state               String?
+
+  // Teaching scope
+  classes             String[]           @default([]) // ["Class 6", ... "Class 12"]
+  boards              String[]           @default([]) // ["CBSE", "ICSE", "State Board"]
+  teachingModes       String[]           @default([]) // ["Chat", "Video Call", "Voice"]
+
+  // Availability preferences
+  availableTimeSlots  String[]           @default([]) // ["Morning (6-10 AM)", ...]
+  availableDays       String[]           @default([]) // ["Mon", "Tue", ...]
+
+  // Verification
+  verificationStatus  VerificationStatus @default(PENDING)
+  verifiedAt          DateTime?
+  rejectionReason     String?
+  govtIdType          String?            // "Aadhar", "PAN", "Passport"
+  govtIdUrl           String?            // R2 storage URL
+  degreeUrl           String?            // R2 storage URL
+  introVideoUrl       String?            // R2 storage URL
+
+  // Availability
+  isOnline            Boolean            @default(false)
+  lastSeenAt          DateTime?
+
+  // Earnings & Stats
+  totalSessions       Int                @default(0)
+  totalEarned         Float              @default(0)   // in INR
+  rating              Float              @default(0)
+  totalRatings        Int                @default(0)
+
+  // Pricing
+  rateType            RateType           @default(PER_QUESTION)
+  sessionRate         Float              @default(50)  // INR per question/minute depending on rateType
+
+  // Payout details
+  upiId               String?
+  bankDetails         String?
+
+  sessions            Session[]          @relation("TeacherSessions")
+  earnings            Earning[]
+  ratings             Rating[]
+
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@index([verificationStatus])
+  @@index([isOnline])
+}
+
+// ─────────────────────────────────────────
+// ADMIN
+// ─────────────────────────────────────────
+
+model Admin {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+// ─────────────────────────────────────────
+// SESSION
+// ─────────────────────────────────────────
+
+model Session {
+  id              String        @id @default(uuid())
+
+  studentId       String
+  student         Student       @relation("StudentSessions", fields: [studentId], references: [id])
+
+  teacherId       String?       // null until teacher accepts
+  teacher         Teacher?      @relation("TeacherSessions", fields: [teacherId], references: [id])
+
+  // Doubt details
+  subject         String
+  doubt           String        // original question from student
+  refinedDoubt    String?       // AI-refined version
+  aiHint          String?       // AI hint shown to teacher
+
+  // Session config
+  mode            SessionMode   @default(TEXT)
+  status          SessionStatus @default(PENDING)
+
+  // Timing
+  requestedAt     DateTime      @default(now())
+  acceptedAt      DateTime?
+  startedAt       DateTime?
+  endedAt         DateTime?
+
+  // Financials
+  amount          Float?        // amount charged for this session
+
+  messages        Message[]
+  rating          Rating?
+  earning         Earning?
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([studentId])
+  @@index([teacherId])
+  @@index([status])
+}
+
+// ─────────────────────────────────────────
+// MESSAGE
+// ─────────────────────────────────────────
+
+model Message {
+  id          String      @id @default(uuid())
+  sessionId   String
+  session     Session     @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  senderId    String      // userId of sender
+  role        MessageRole
+  content     String
+  imageUrl    String?     // if student sends a photo of question
+
+  createdAt   DateTime    @default(now())
+
+  @@index([sessionId])
+}
+
+// ─────────────────────────────────────────
+// RATING
+// ─────────────────────────────────────────
+
+model Rating {
+  id          String   @id @default(uuid())
+  sessionId   String   @unique
+  session     Session  @relation(fields: [sessionId], references: [id])
+
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+
+  teacherId   String
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+
+  stars       Int      // 1-5
+  feedback    String?
+
+  createdAt   DateTime @default(now())
+}
+
+// ─────────────────────────────────────────
+// EARNING (teacher income tracking)
+// ─────────────────────────────────────────
+
+model Earning {
+  id          String   @id @default(uuid())
+  teacherId   String
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+
+  sessionId   String   @unique
+  session     Session  @relation(fields: [sessionId], references: [id])
+
+  amount      Float    // INR earned for this session
+  commission  Float    // platform cut (20-30%)
+  netAmount   Float    // teacher's actual earning
+
+  createdAt   DateTime @default(now())
+
+  @@index([teacherId])
+}

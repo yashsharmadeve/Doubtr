@@ -6,6 +6,9 @@ import { TrendingUp, Clock, Star, Wallet, Inbox, Video, ArrowRight } from 'lucid
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { useCurrentUser } from '@/hooks/useAuth';
+import useBreakText from '@/hooks/break-text';
+import { formatDate } from '@/utils/date';
 
 const stats = [
   { label: 'Doubts answered', value: '248', icon: Inbox, hint: '+12 this week', tone: 'primary' },
@@ -50,6 +53,8 @@ const upcoming = [
 ];
 
 export default function DashboardPageClient() {
+  const { user } = useCurrentUser();
+  const { firstWord } = useBreakText({ text: user?.name || "User" })
   return (
     <div className="px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
       <motion.div
@@ -58,9 +63,9 @@ export default function DashboardPageClient() {
         transition={{ duration: 0.5 }}
       >
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          Thursday, May 14
+          {formatDate(new Date())}
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif mt-2">Good afternoon, Priya.</h1>
+        <h1 className="text-4xl md:text-5xl font-serif mt-2">Good afternoon, {firstWord}</h1>
         <p className="text-muted-foreground mt-2 max-w-2xl">
           You have 3 active doubt requests waiting. Two sessions are scheduled for later today.
         </p>
